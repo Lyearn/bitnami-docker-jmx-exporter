@@ -84,6 +84,22 @@ We can launch another containers using the same flag (`--network NETWORK`) in th
 
 Find all the configuration options in the [JMX Prometheus Exporter documentation](https://github.com/prometheus/jmx_exporter#configuration).
 
+In order to provide custom configuration you can override the default port and configuration file (defined by the `CMD` statement in `Dockerfile`) by passing new parameters. Please find below an example using `docker-compose.yaml`:
+
+```yaml
+version: '2'
+services:
+  jmx-exporter:
+    image: docker.io/bitnami/jmx-exporter:0
+    command:
+      - "5566"
+      - "/etc/myconfig.yml"
+    ports:
+      - 5566:5566
+    volumes:
+    - ./myconfig.yml:/etc/myconfig.yml
+```
+
 # Logging
 
 The Bitnami JMX Exporter Docker image sends the container logs to `stdout`. To view the logs:
